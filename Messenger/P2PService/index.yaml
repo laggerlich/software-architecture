@@ -1,0 +1,113 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'API P2PService'
+  description: API для работы с P2P чатом
+servers:
+  - url: http://localhost:8082
+    description: P2P server
+paths:
+  /send_message:
+    post:
+      summary: Отправка P2P сообщений
+      parameters:
+      - name: receiver_id
+        description: Уникальный идентификатор получателя
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: text
+        description: Текст сообщения
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The P2P message was sent
+        404:
+          description: Error with sending P2P message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /get_unread:
+    get:
+      summary: Загрузка непрочитанных сообщений P2P чата
+      parameters:
+      - name: id
+        description: Уникальный идентификатор отправителя
+        in: query
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The unread P2P messages was got
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/p2pmessages'
+        404:
+          description: Error with getting unread P2P messages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    p2pmessages:
+      type: array
+      items:
+        $ref: '#/components/schemas/p2pmessage'
+    p2pmessage:
+      type: object
+      required:
+        - create_date
+        - id
+        - is_read
+        - receiver_id
+        - sender_id
+        - text
+      properties:
+        create_date:
+          type: string
+        id:
+          type: integer
+        is_read:
+          type: boolean
+        receiver_id:
+          type: integer
+        sender_id:
+          type: integer
+        text:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: Сообщение о ошибке
+          type: string
+  securitySchemes:
+      basicAuth:     
+        type: http
+        scheme: basic
+security:
+  - basicAuth: []

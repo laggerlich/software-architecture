@@ -1,0 +1,197 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'API GroupService'
+  description: API для работы с групповым чатом
+servers:
+  - url: http://localhost:8081
+    description: Group server
+paths:
+  /create_group:
+    post:
+      summary: Создание группового чата
+      parameters:
+      - name: group_name
+        description: Имя
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: able_write
+        description: Разрешено ли писать сообщения
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: The group chat was created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groups'
+        404:
+          description: The group chat was not created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /add_user:
+    post:
+      summary: Добавление пользователя в чат
+      parameters:
+      - name: user_id
+        description: Уникальный идентификатор пользователя
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: group_id
+        description: Уникальный идентификатор группы
+        in: query
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The user was added
+        404:
+          description: Error with user adding
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /send_message:
+    post:
+      summary: Добавление пользователя в чат
+      parameters:
+      - name: group_id
+        description: Уникальный идентификатор группы
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: text
+        description: Текст сообщения
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The message was sent
+        404:
+          description: Error with message sending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /get_unread:
+    get:
+      summary: Загрузка сообщений группового чата
+      parameters:
+      - name: group_id
+        description: Уникальный идентификатор группы
+        in: query
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The messages was read
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getunreads'
+        404:
+          description: Error with messages get read
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    groups:
+      type: array
+      items:
+        $ref: '#/components/schemas/group'
+    group:
+      type: object
+      required:
+        - id
+        - name
+        - author_id
+        - create_date
+        - able_write
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        author_id:
+          type: integer
+        create_date:
+          type: string
+        able_write:
+          type: boolean
+    getunreads:
+      type: array
+      items:
+        $ref: '#/components/schemas/getunread'
+    getunread:
+      type: object
+      required:
+        - id
+        - sender_id
+        - text
+        - create_date
+      properties:
+        id:
+          type: integer
+        sender_id:
+          type: integer
+        text:
+          type: string
+        create_date:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: Сообщение о ошибке
+          type: string
+  securitySchemes:
+      basicAuth:     
+        type: http
+        scheme: basic
+security:
+  - basicAuth: []

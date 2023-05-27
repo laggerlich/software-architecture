@@ -15,10 +15,10 @@ Person(user, "Пользователь")
 System_Ext(web_site, "Клиентский веб-сайт / приложение", "HTML, CSS, JavaScript, React", "Веб-интерфейс")
 System_Boundary(conference_site, "Мессенджер") {
    'Container(web_site, "Клиентский веб-сайт", ")
-   Container(web_service, "Веб-сервис пользовательского сайта", "Python", "Отвечает на запросы пользователей по получению веб-страницы", $tags = "microService")
-   Container(client_service, "Сервис авторизации", "Python", "Сервис управления пользователями", $tags = "microService")    
-   Container(group_service, "Сервис групповых чатов", "Python", "Сервис управления групповыми чатами", $tags = "microService") 
-   Container(p2p_service, "Сервис P2P чатов", "Python", "Сервис управления P2P чатами", $tags = "microService")   
+   Container(web_service, "Веб-сервис пользовательского сайта", "C++", "Отвечает на запросы пользователей по получению веб-страницы", $tags = "microService")
+   Container(client_service, "Сервис авторизации", "C++", "Сервис управления пользователями", $tags = "microService")    
+   Container(group_service, "Сервис групповых чатов", "C++", "Сервис управления групповыми чатами", $tags = "microService") 
+   Container(p2p_service, "Сервис P2P чатов", "C++", "Сервис управления P2P чатами", $tags = "microService")  
    ContainerDb(db, "База данных", "PostgreSQL", "Хранение данных о пользователях, групповых и P2P чатах", $tags = "storage")
    
 }
