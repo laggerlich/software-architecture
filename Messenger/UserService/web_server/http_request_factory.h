@@ -59,8 +59,10 @@ public:
             hasSubstr(request.getURI(),"/search") ||
             hasSubstr(request.getURI(),"/auth"))
             return new UserHandler(_format);
-Expand All
-	@@ -65,4 +66,4 @@ class HTTPRequestFactory: public HTTPRequestHandlerFactory
+        return 0;
+    }
+
+private:
     std::string _format;
 };
 

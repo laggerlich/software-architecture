@@ -22,14 +22,24 @@
 ### Task 2
 
 !Docker
-Для запуска микросервисов в Docker, неоходимо перейти в папаку [!Docker](https://github.com/laggerlich/software-architecture/tree/main/Messenger/!Docker) и выполнить команду в консоли 
+Для запуска микросервисов в Docker, неоходимо перейти в папку [Messenger/!Docker](https://github.com/laggerlich/software-architecture/tree/main/Messenger/!Docker) и выполнить команду в консоли: 
 ```
 docker-compose up --build
 ```
 Тестовые данные для загрузки в базу данных находятся в [commands.sql](https://github.com/laggerlich/software-architecture/blob/main/Messenger/commands.sql).
 
+### Task 3
+
+Пользователи теперь хранятся в двух базах данных. Все остальные таблицы хранятся в первой базе данных.
+
+Для загрузки тестовых данных в базу данных необходимо подключаться к ProxySQL. 
+
+Параметры:
+- DB_HOST=localhost
+- DB_PORT=6033
+
 Все таблицы базы данных для работы сервисов будут созданы при первом запуске сервисов.
 
-* Сервис авторизации: [UserService](https://github.com/laggerlich/software-architecture/tree/main/Messenger/UserService)
-* Сервис групповых чатов: [GroupService](https://github.com/laggerlich/software-architecture/tree/main/Messenger/GroupService)
-* Сервис P2P чатов: [P2PService](https://github.com/laggerlich/software-architecture/tree/main/Messenger/P2PService)
+* Сервис авторизации: [Messenger/UserService](https://github.com/laggerlich/software-architecture/tree/main/Messenger/UserService)
+* Сервис групповых чатов: [Messenger/GroupService](https://github.com/laggerlich/software-architecture/tree/main/Messenger/GroupService)
+* Сервис P2P чатов: [Messenger/P2PService](https://github.com/laggerlich/software-architecture/tree/main/Messenger/P2PService)

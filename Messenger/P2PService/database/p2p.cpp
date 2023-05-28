@@ -34,13 +34,7 @@ namespace database
                         << "`text` VARCHAR(2048) NULL,"
                         << "`create_date` DATETIME NOT NULL,"
                         << "`is_read` BOOLEAN NOT NULL,"
-                        << "PRIMARY KEY (`id`),"
-                        << "CONSTRAINT `fk_receiver_user`"
-                        << "FOREIGN KEY (`receiver_id`)"
-                        << "REFERENCES `User` (`id`),"
-                        << "CONSTRAINT `fk_sender_user`"
-                        << "FOREIGN KEY (`sender_id`)"
-                        << "REFERENCES `User` (`id`));",
+                        << "PRIMARY KEY (`id`));",
                 now;
 
         }
