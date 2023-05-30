@@ -6,5 +6,5 @@ RUN git clone -b master https://github.com/pocoproject/poco.git && cd poco && mk
 ARG build1=$RANDOM
 RUN git clone https://github.com/laggerlich/software-architecture.git
 RUN sudo ldconfig
-RUN cd SoftwareEngineering/Messenger/P2PService && mkdir build && cd build && cmake  .. && make
-ENTRYPOINT [ "SoftwareEngineering/Messenger/P2PService/build/P2PService" ]
+RUN cd software-architecture/Messenger/P2PService && mkdir build && cd build && cmake  .. && make
+ENTRYPOINT [ "software-architecture/Messenger/P2PService/build/P2PService" ]
